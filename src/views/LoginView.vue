@@ -60,7 +60,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
       login(ruleForm).then(res=>{
         console.log("res:", res)
         localStorage.setItem("token", res.data.token)   
-        // router.push("/")
+        router.push("/")
       })
     } else {
       console.log('error submit!')
