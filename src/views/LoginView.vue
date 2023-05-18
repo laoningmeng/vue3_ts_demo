@@ -34,11 +34,13 @@
 //@ts-ignore
 import type { FormInstance, FormRules } from 'element-plus'
 import {LoginForm} from '../type/login'
-
+import {login} from '../request/api'
 
 const ruleFormRef = ref<FormInstance>({})
 
 const ruleForm = reactive(new LoginForm())
+
+const router = useRouter()
 
 const rules = reactive<FormRules>({
   username: [
@@ -55,6 +57,10 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate((valid:any) => {
     if (valid) {
       console.log('submit!')
+      login(ruleForm).then(res=>{
+        localStorage.setItem("token", res.data.token)   
+        router.push("/")
+      })
     } else {
       console.log('error submit!')
       return false
